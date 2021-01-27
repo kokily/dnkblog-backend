@@ -1,23 +1,12 @@
-import { ApolloServer, gql } from 'apollo-server-koa';
-import Koa from 'koa';
+import { ApolloServer } from 'apollo-server-koa';
+import Koa, { Context } from 'koa';
+import schema from './libs/schema';
 
 const app = new Koa();
 
-const typeDefs = gql`
-  type Query {
-    hello: String
-  }
-`;
-
-const resolvers = {
-  Query: {
-    hello: () => 'Hello World!',
-  },
-};
-
 const apollo = new ApolloServer({
-  typeDefs,
-  resolvers,
+  schema,
+  context: ({ ctx }: { ctx: Context }) => ({ ctx }),
 });
 
 apollo.applyMiddleware({ app });

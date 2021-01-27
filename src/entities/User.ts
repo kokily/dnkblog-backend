@@ -9,7 +9,6 @@ import {
 import { IsEmail } from 'class-validator';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { TokensType } from '../types/global';
 
 @Entity()
 class User extends BaseEntity {
@@ -44,9 +43,6 @@ class User extends BaseEntity {
   @Column({ type: 'text', default: null, nullable: true })
   googleId!: string | null;
 
-  @Column({ type: 'text', nullable: true })
-  refresh_token!: string | null;
-
   @Column({ type: 'timestamptz' })
   @CreateDateColumn()
   created_at!: Date;
@@ -71,19 +67,14 @@ class User extends BaseEntity {
     }
   };
 
-  public generateToken = (): TokensType => {
-    const accessToken = jwt.sign({ userId: this.id }, process.env.ACCESS_SECRET!, {
-      expiresIn: '15m',
-    });
+  public generateToken = (): string => {
+    const token = {
+      userId: this.id,
+    };
 
-    const refreshToken = jwt.sign({ userId: this.id }, process.env.REFRESH_TOKEN!, {
+    return jwt.sign(token, process.env.TOKEN_SECRET!, {
       expiresIn: '7d',
     });
-
-    return {
-      accessToken,
-      refreshToken,
-    };
   };
 }
 

@@ -1,0 +1,17 @@
+scalar Date
+
+type User {
+  id: ID!
+  username: String!
+  email: String
+  password: String
+  profile: String
+  admin: Boolean!
+  verify_key: String
+  verified: Boolean!
+  githubId: String
+  googleId: String
+  refresh_token: String
+  created_at: Date
+  updated_at: Date
+}
