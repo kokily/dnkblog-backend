@@ -1,8 +1,10 @@
 import https from 'https';
 import http from 'http';
 import fs from 'fs';
+import { createConnection } from 'typeorm';
 import './libs/env';
 import app from './app';
+import ConnectionOptions from './libs/ormConfig';
 
 // SSL Config
 const configurations = {
@@ -27,8 +29,12 @@ if (config.ssl) {
   server = http.createServer(app.callback());
 }
 
-server.listen(config.port, () => {
-  console.log(
-    `Server on http${config.ssl ? 's' : ''}://${config.hostname}:${config.port}`
-  );
-});
+createConnection(ConnectionOptions)
+  .then(() => {
+    server.listen(config.port, () => {
+      console.log(
+        `Server on http${config.ssl ? 's' : ''}://${config.hostname}:${config.port}`
+      );
+    });
+  })
+  .catch((err) => console.error(err));
