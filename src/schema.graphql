@@ -1,15 +1,42 @@
-type RegisterEmailResponse {
+type MeType {
+  id: ID!
+  username: String!
+  email: String
+  profile: String
+  admin: Boolean!
+  githubId: String
+  googleId: String
+}
+
+type CheckMeResponse {
+  ok: Boolean!
+  error: String
+  user: MeType
+}
+
+type Query {
+  CheckMe: CheckMeResponse!
+}
+
+type LoginEmailResponse {
   ok: Boolean!
   error: String
 }
 
 type Mutation {
+  LoginEmail(email: String!, password: String!): LoginEmailResponse!
+  Logout: LogoutResponse!
   RegisterEmail(username: String!, email: String!, password: String!): RegisterEmailResponse!
 }
 
-type Query {
-  temp: String
-  Test: TestResponse!
+type LogoutResponse {
+  ok: Boolean!
+  error: String
+}
+
+type RegisterEmailResponse {
+  ok: Boolean!
+  error: String
 }
 
 scalar Date
@@ -25,12 +52,7 @@ type User {
   verified: Boolean!
   githubId: String
   googleId: String
-  refresh_token: String
+  token_version: Int!
   created_at: Date
   updated_at: Date
-}
-
-type TestResponse {
-  ok: Boolean!
-  error: String
 }

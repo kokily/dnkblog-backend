@@ -1,24 +1,51 @@
-export const typeDefs = ["type RegisterEmailResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype Mutation {\n  RegisterEmail(username: String!, email: String!, password: String!): RegisterEmailResponse!\n}\n\ntype Query {\n  temp: String\n  Test: TestResponse!\n}\n\nscalar Date\n\ntype User {\n  id: ID!\n  username: String!\n  email: String\n  password: String\n  profile: String\n  admin: Boolean!\n  verify_key: String\n  verified: Boolean!\n  githubId: String\n  googleId: String\n  refresh_token: String\n  created_at: Date\n  updated_at: Date\n}\n\ntype TestResponse {\n  ok: Boolean!\n  error: String\n}\n"];
+export const typeDefs = ["type MeType {\n  id: ID!\n  username: String!\n  email: String\n  profile: String\n  admin: Boolean!\n  githubId: String\n  googleId: String\n}\n\ntype CheckMeResponse {\n  ok: Boolean!\n  error: String\n  user: MeType\n}\n\ntype Query {\n  CheckMe: CheckMeResponse!\n}\n\ntype LoginEmailResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype Mutation {\n  LoginEmail(email: String!, password: String!): LoginEmailResponse!\n  Logout: LogoutResponse!\n  RegisterEmail(username: String!, email: String!, password: String!): RegisterEmailResponse!\n}\n\ntype LogoutResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype RegisterEmailResponse {\n  ok: Boolean!\n  error: String\n}\n\nscalar Date\n\ntype User {\n  id: ID!\n  username: String!\n  email: String\n  password: String\n  profile: String\n  admin: Boolean!\n  verify_key: String\n  verified: Boolean!\n  githubId: String\n  googleId: String\n  token_version: Int!\n  created_at: Date\n  updated_at: Date\n}\n"];
 /* tslint:disable */
 
 export interface Query {
-  temp: string | null;
-  Test: TestResponse;
+  CheckMe: CheckMeResponse;
 }
 
-export interface TestResponse {
+export interface CheckMeResponse {
   ok: boolean;
   error: string | null;
+  user: MeType | null;
+}
+
+export interface MeType {
+  id: string;
+  username: string;
+  email: string | null;
+  profile: string | null;
+  admin: boolean;
+  githubId: string | null;
+  googleId: string | null;
 }
 
 export interface Mutation {
+  LoginEmail: LoginEmailResponse;
+  Logout: LogoutResponse;
   RegisterEmail: RegisterEmailResponse;
+}
+
+export interface LoginEmailMutationArgs {
+  email: string;
+  password: string;
 }
 
 export interface RegisterEmailMutationArgs {
   username: string;
   email: string;
   password: string;
+}
+
+export interface LoginEmailResponse {
+  ok: boolean;
+  error: string | null;
+}
+
+export interface LogoutResponse {
+  ok: boolean;
+  error: string | null;
 }
 
 export interface RegisterEmailResponse {
@@ -39,7 +66,7 @@ export interface User {
   verified: boolean;
   githubId: string | null;
   googleId: string | null;
-  refresh_token: string | null;
+  token_version: number;
   created_at: Date | null;
   updated_at: Date | null;
 }

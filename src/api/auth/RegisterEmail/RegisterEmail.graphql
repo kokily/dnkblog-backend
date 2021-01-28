@@ -10,7 +10,3 @@ type Mutation {
     password: String!
   ): RegisterEmailResponse!
 }
-
-type Query {
-  temp: String
-}

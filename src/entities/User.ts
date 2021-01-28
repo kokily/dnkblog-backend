@@ -8,7 +8,6 @@ import {
 } from 'typeorm';
 import { IsEmail } from 'class-validator';
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
 
 @Entity()
 class User extends BaseEntity {
@@ -43,6 +42,9 @@ class User extends BaseEntity {
   @Column({ type: 'text', default: null, nullable: true })
   googleId!: string | null;
 
+  @Column({ type: 'int', default: 0 })
+  token_version!: number;
+
   @Column({ type: 'timestamptz' })
   @CreateDateColumn()
   created_at!: Date;
@@ -65,16 +67,6 @@ class User extends BaseEntity {
     } else {
       return false;
     }
-  };
-
-  public generateToken = (): string => {
-    const token = {
-      userId: this.id,
-    };
-
-    return jwt.sign(token, process.env.TOKEN_SECRET!, {
-      expiresIn: '7d',
-    });
   };
 }
 

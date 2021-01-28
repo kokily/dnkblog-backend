@@ -2,6 +2,7 @@ import https from 'https';
 import http from 'http';
 import fs from 'fs';
 import { createConnection } from 'typeorm';
+import crypto from 'crypto';
 import './libs/env';
 import app from './app';
 import ConnectionOptions from './libs/ormConfig';

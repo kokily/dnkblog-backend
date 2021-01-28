@@ -1,0 +1,11 @@
+type LoginEmailResponse {
+  ok: Boolean!
+  error: String
+}
+
+type Mutation {
+  LoginEmail(
+    email: String!
+    password: String!
+  ): LoginEmailResponse!
+}

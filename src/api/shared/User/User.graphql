@@ -11,7 +11,7 @@ type User {
   verified: Boolean!
   githubId: String
   googleId: String
-  refresh_token: String
+  token_version: Int!
   created_at: Date
   updated_at: Date
 }

@@ -1,0 +1,19 @@
+type MeType {
+  id: ID!
+  username: String!
+  email: String
+  profile: String
+  admin: Boolean!
+  githubId: String
+  googleId: String
+}
+
+type CheckMeResponse {
+  ok: Boolean!
+  error: String
+  user: MeType
+}
+
+type Query {
+  CheckMe: CheckMeResponse!
+}

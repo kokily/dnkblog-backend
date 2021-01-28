@@ -1,8 +1,0 @@
-type TestResponse {
-  ok: Boolean!
-  error: String
-}
-
-type Query {
-  Test: TestResponse!
-}
