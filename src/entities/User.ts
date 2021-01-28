@@ -27,7 +27,7 @@ class User extends BaseEntity {
   @Column({ type: 'text', nullable: true })
   profile!: string | null;
 
-  @Column({ type: 'boolean' })
+  @Column({ type: 'boolean', default: false })
   admin!: boolean;
 
   @Column({ type: 'text', nullable: true })
@@ -41,9 +41,6 @@ class User extends BaseEntity {
 
   @Column({ type: 'text', default: null, nullable: true })
   googleId!: string | null;
-
-  @Column({ type: 'int', default: 0 })
-  token_version!: number;
 
   @Column({ type: 'timestamptz' })
   @CreateDateColumn()

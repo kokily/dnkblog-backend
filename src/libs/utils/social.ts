@@ -20,6 +20,7 @@ export async function getGithubToken(code: string): Promise<string> {
       body: JSON.stringify({
         client_id: process.env.GITHUB_CLIENT_ID,
         client_secret: process.env.GITHUB_CLIENT_SECRET,
+        code,
       }),
     }).then((res) => res.json());
 

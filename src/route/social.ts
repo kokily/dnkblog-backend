@@ -21,12 +21,7 @@ const social = new Router();
 
 // Github Login Callback
 social.get('/github/callback', async (ctx: Context) => {
-  const { code }: { code: string } = ctx.query;
-
-  if (!code) {
-    ctx.status = 400;
-    return;
-  }
+  const { code } = ctx.query;
 
   try {
     const token = await getGithubToken(code);
@@ -42,7 +37,7 @@ social.get('/github/callback', async (ctx: Context) => {
 
       setTokenCookie(ctx, accessToken, refreshToken);
 
-      ctx.redirect(`${isProd ? prodClient : devClient}/github?token=${token}`);
+      ctx.redirect(`${isProd ? prodClient : devClient}`);
     } else {
       // New User Create
       const newUser = await getRepository(User).create({
@@ -59,7 +54,7 @@ social.get('/github/callback', async (ctx: Context) => {
 
       setTokenCookie(ctx, accessToken, refreshToken);
 
-      ctx.redirect(`${isProd ? prodClient : devClient}/github?token=${token}`);
+      ctx.redirect(`${isProd ? prodClient : devClient}`);
     }
   } catch (err) {
     ctx.throw(500, err);
@@ -73,7 +68,7 @@ social.get('/google/login', async (ctx: Context) => {
 
 // Google Login Callback
 social.get('/google/callback', async (ctx: Context) => {
-  const { code }: { code: string } = ctx.query;
+  const { code }: { code?: string } = ctx.query;
 
   if (!code) {
     ctx.status = 400;
@@ -100,7 +95,7 @@ social.get('/google/callback', async (ctx: Context) => {
 
       setTokenCookie(ctx, accessToken, refreshToken);
 
-      ctx.redirect(`${isProd ? prodClient : devClient}/google?token=${token}`);
+      ctx.redirect(`${isProd ? prodClient : devClient}`);
     } else {
       // New User Create
       const newUser = await getRepository(User).create({
@@ -118,7 +113,7 @@ social.get('/google/callback', async (ctx: Context) => {
 
       setTokenCookie(ctx, accessToken, refreshToken);
 
-      ctx.redirect(`${isProd ? prodClient : devClient}/google?token=${token}`);
+      ctx.redirect(`${isProd ? prodClient : devClient}`);
     }
   } catch (err) {
     ctx.throw(500, err);
