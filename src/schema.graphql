@@ -27,6 +27,7 @@ type Mutation {
   LoginEmail(email: String!, password: String!): LoginEmailResponse!
   Logout: LogoutResponse!
   RegisterEmail(username: String!, email: String!, password: String!): RegisterEmailResponse!
+  AddPost(category: String!, title: String!, body: String!, thumbnail: String, tags: [String]!): AddPostResponse!
 }
 
 type LogoutResponse {
@@ -37,6 +38,23 @@ type LogoutResponse {
 type RegisterEmailResponse {
   ok: Boolean!
   error: String
+}
+
+type AddPostResponse {
+  ok: Boolean!
+  error: String
+  post: Post
+}
+
+type Post {
+  id: ID!
+  category: String!
+  title: String!
+  body: String!
+  thumbnail: String
+  tags: [String]!
+  created_at: Date!
+  updated_at: Date
 }
 
 scalar Date
