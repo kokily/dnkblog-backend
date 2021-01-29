@@ -1,0 +1,6 @@
+type Tag {
+  id: ID!
+  name: String!
+  count: Int!
+  created_at: Date!
+}

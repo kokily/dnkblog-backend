@@ -11,7 +11,8 @@ type User {
   verified: Boolean!
   githubId: String
   googleId: String
-  token_version: Int!
   created_at: Date
   updated_at: Date
+  comments: [Comment]
+  replies: [Reply]
 }

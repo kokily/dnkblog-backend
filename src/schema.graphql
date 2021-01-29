@@ -16,6 +16,7 @@ type CheckMeResponse {
 
 type Query {
   CheckMe: CheckMeResponse!
+  AllPosts(title: String, cursor: ID): AllPostsResponse!
 }
 
 type LoginEmailResponse {
@@ -46,6 +47,25 @@ type AddPostResponse {
   post: Post
 }
 
+type AllPostsResponse {
+  ok: Boolean!
+  error: String
+  posts: [Post]
+}
+
+type Comment {
+  id: ID!
+  body: String!
+  deleted: Boolean!
+  created_at: Date!
+  updated_at: Date
+  userId: String
+  username: String
+  profile: String
+  postId: String
+  replies: [Reply]!
+}
+
 type Post {
   id: ID!
   category: String!
@@ -55,6 +75,27 @@ type Post {
   tags: [String]!
   created_at: Date!
   updated_at: Date
+  comments: [Comment]
+}
+
+type Reply {
+  id: ID!
+  body: String!
+  deleted: Boolean!
+  created_at: Date!
+  updated_at: Date
+  userId: String
+  username: String
+  profile: String
+  postId: String
+  commentId: String
+}
+
+type Tag {
+  id: ID!
+  name: String!
+  count: Int!
+  created_at: Date!
 }
 
 scalar Date
@@ -70,7 +111,8 @@ type User {
   verified: Boolean!
   githubId: String
   googleId: String
-  token_version: Int!
   created_at: Date
   updated_at: Date
+  comments: [Comment]
+  replies: [Reply]
 }

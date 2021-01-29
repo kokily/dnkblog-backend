@@ -1,0 +1,12 @@
+type Comment {
+  id: ID!
+  body: String!
+  deleted: Boolean!
+  created_at: Date!
+  updated_at: Date
+  userId: String
+  username: String
+  profile: String
+  postId: String
+  replies: [Reply]!
+}

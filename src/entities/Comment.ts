@@ -7,8 +7,10 @@ import {
   JoinColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
 } from 'typeorm';
 import Post from './Post';
+import Reply from './Reply';
 import User from './User';
 
 @Entity()
@@ -44,12 +46,15 @@ class Comment extends BaseEntity {
   @JoinColumn({ name: 'userId' })
   user!: User;
 
-  @Column()
+  @Column({ nullable: true })
   postId!: string;
 
   @ManyToOne((type) => Post, (post) => post.comments)
   @JoinColumn({ name: 'postId' })
   post!: Post;
+
+  @OneToMany((type) => Reply, (reply) => reply.commentId)
+  replies!: [Reply];
 }
 
 export default Comment;

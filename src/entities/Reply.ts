@@ -8,6 +8,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import Comment from './Comment';
 import Post from './Post';
 import User from './User';
 
@@ -40,16 +41,23 @@ class Reply extends BaseEntity {
   @Column({ type: 'text' })
   profile!: string | null;
 
-  @ManyToOne((type) => User, (user) => user.comments)
+  @ManyToOne((type) => User, (user) => user.replies)
   @JoinColumn({ name: 'userId' })
   user!: User;
 
-  @Column()
+  @Column({ nullable: true })
   postId!: string;
 
-  @ManyToOne((type) => Post, (post) => post.comments)
+  @ManyToOne((type) => Post, (post) => post.replies)
   @JoinColumn({ name: 'postId' })
   post!: Post;
+
+  @Column({ nullable: true })
+  commentId!: string;
+
+  @ManyToOne((type) => Comment, (comment) => comment.replies)
+  @JoinColumn({ name: 'commentId' })
+  comment!: Comment;
 }
 
 export default Reply;

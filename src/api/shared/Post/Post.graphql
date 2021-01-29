@@ -7,4 +7,6 @@ type Post {
   tags: [String]!
   created_at: Date!
   updated_at: Date
+  comments: [Comment]
+  replies: [Reply]
 }
