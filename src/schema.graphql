@@ -17,6 +17,10 @@ type CheckMeResponse {
 type Query {
   CheckMe: CheckMeResponse!
   AllPosts(title: String, cursor: ID): AllPostsResponse!
+  CategoryPosts(cursor: ID, category: String!): CategoryPostsResponse!
+  DivideCategory: DivideCategoryResponse!
+  ReadPost(id: ID!): ReadPostResponse!
+  TagPosts(cursor: ID, tag: String!): TagPostsResponse!
 }
 
 type LoginEmailResponse {
@@ -29,6 +33,8 @@ type Mutation {
   Logout: LogoutResponse!
   RegisterEmail(username: String!, email: String!, password: String!): RegisterEmailResponse!
   AddPost(category: String!, title: String!, body: String!, thumbnail: String, tags: [String]!): AddPostResponse!
+  RemovePost(id: ID!): RemovePostResponse!
+  UpdatePost(id: ID!, category: String, title: String, body: String, thumbnail: String, tags: [String]): UpdatePostResponse!
 }
 
 type LogoutResponse {
@@ -51,6 +57,44 @@ type AllPostsResponse {
   ok: Boolean!
   error: String
   posts: [Post]
+}
+
+type CategoryPostsResponse {
+  ok: Boolean!
+  error: String
+  posts: [Post]
+}
+
+type DivideCategoryResponse {
+  ok: Boolean!
+  error: String
+  categories: [Category]
+}
+
+type ReadPostResponse {
+  ok: Boolean!
+  error: String
+  post: Post
+}
+
+type RemovePostResponse {
+  ok: Boolean!
+  error: String
+}
+
+type TagPostsResponse {
+  ok: Boolean!
+  error: String
+  posts: [Post]
+}
+
+type UpdatePostResponse {
+  ok: Boolean!
+  error: String
+}
+
+type Category {
+  name: String!
 }
 
 type Comment {
@@ -76,6 +120,7 @@ type Post {
   created_at: Date!
   updated_at: Date
   comments: [Comment]
+  replies: [Reply]
 }
 
 type Reply {

@@ -1,0 +1,15 @@
+type UpdatePostResponse {
+  ok: Boolean!
+  error: String
+}
+
+type Mutation {
+  UpdatePost(
+    id: ID!
+    category: String
+    title: String
+    body: String
+    thumbnail: String
+    tags: [String]
+  ): UpdatePostResponse!
+}

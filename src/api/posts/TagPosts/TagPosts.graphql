@@ -1,0 +1,12 @@
+type TagPostsResponse {
+  ok: Boolean!
+  error: String
+  posts: [Post]
+}
+
+type Query {
+  TagPosts(
+    cursor: ID
+    tag: String!
+  ): TagPostsResponse!
+}

@@ -1,0 +1,9 @@
+type DivideCategoryResponse {
+  ok: Boolean!
+  error: String
+  categories: [Category]
+}
+
+type Query {
+  DivideCategory: DivideCategoryResponse!
+}

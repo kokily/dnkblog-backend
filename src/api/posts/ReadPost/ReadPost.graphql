@@ -1,0 +1,11 @@
+type ReadPostResponse {
+  ok: Boolean!
+  error: String
+  post: Post
+}
+
+type Query {
+  ReadPost(
+    id: ID!
+  ): ReadPostResponse!
+}

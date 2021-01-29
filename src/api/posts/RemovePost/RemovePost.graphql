@@ -1,0 +1,10 @@
+type RemovePostResponse {
+  ok: Boolean!
+  error: String
+}
+
+type Mutation {
+  RemovePost(
+    id: ID!
+  ): RemovePostResponse!
+}

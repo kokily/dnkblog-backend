@@ -1,0 +1,12 @@
+type CategoryPostsResponse {
+  ok: Boolean!
+  error: String
+  posts: [Post]
+}
+
+type Query {
+  CategoryPosts(
+    cursor: ID
+    category: String!
+  ): CategoryPostsResponse!
+}
