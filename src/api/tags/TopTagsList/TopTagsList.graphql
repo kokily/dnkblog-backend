@@ -1,0 +1,10 @@
+type TopTagsListResponse {
+  ok: Boolean!
+  error: String
+  tags: [Tag]
+  all_count: Int!
+}
+
+type Query {
+  TopTagsList: TopTagsListResponse!
+}

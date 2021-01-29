@@ -21,6 +21,7 @@ type Query {
   DivideCategory: DivideCategoryResponse!
   ReadPost(id: ID!): ReadPostResponse!
   TagPosts(cursor: ID, tag: String!): TagPostsResponse!
+  TopTagsList: TopTagsListResponse!
 }
 
 type LoginEmailResponse {
@@ -160,4 +161,11 @@ type User {
   updated_at: Date
   comments: [Comment]
   replies: [Reply]
+}
+
+type TopTagsListResponse {
+  ok: Boolean!
+  error: String
+  tags: [Tag]
+  all_count: Int!
 }
