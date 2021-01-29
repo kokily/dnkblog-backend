@@ -5,9 +5,12 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
 } from 'typeorm';
 import { IsEmail } from 'class-validator';
 import bcrypt from 'bcryptjs';
+import Comment from './Comment';
+import Reply from './Reply';
 
 @Entity()
 class User extends BaseEntity {
@@ -49,6 +52,13 @@ class User extends BaseEntity {
   @Column({ type: 'timestamptz' })
   @UpdateDateColumn()
   updated_at!: Date;
+
+  // Relations
+  @OneToMany((type) => Comment, (comment) => comment.userId)
+  comments!: Comment[];
+
+  @OneToMany((type) => Reply, (reply) => reply.userId)
+  replies!: Reply[];
 
   private hashPassword = async (password: string): Promise<string> => {
     return await bcrypt.hash(password, 10);

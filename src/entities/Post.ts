@@ -5,7 +5,10 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
 } from 'typeorm';
+import Comment from './Comment';
+import Reply from './Reply';
 
 @Entity()
 class Post extends BaseEntity {
@@ -34,6 +37,13 @@ class Post extends BaseEntity {
   @Column({ type: 'timestamptz' })
   @UpdateDateColumn()
   updated_at!: Date;
+
+  // Relations
+  @OneToMany((type) => Comment, (comment) => comment.postId)
+  comments!: Comment[];
+
+  @OneToMany((type) => Reply, (reply) => reply.postId)
+  replies!: Reply[];
 }
 
 export default Post;
