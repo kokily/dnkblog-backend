@@ -11,7 +11,6 @@ const resolvers: Resolvers = {
       try {
         const query = await getManager()
           .createQueryBuilder(Post, 'post')
-          .leftJoinAndSelect('post.comments', 'comment')
           .where('post.id = :id', { id });
 
         const post = await query.getOne();
