@@ -38,7 +38,7 @@ class Reply extends BaseEntity {
   @Column({ type: 'text' })
   username!: string;
 
-  @Column({ type: 'text' })
+  @Column({ type: 'text', nullable: true })
   profile!: string | null;
 
   @ManyToOne((type) => User, (user) => user.replies)

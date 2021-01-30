@@ -39,7 +39,7 @@ class Comment extends BaseEntity {
   @Column({ type: 'text' })
   username!: string;
 
-  @Column({ type: 'text' })
+  @Column({ type: 'text', nullable: true })
   profile!: string | null;
 
   @ManyToOne((type) => User, (user) => user.comments)
@@ -53,7 +53,7 @@ class Comment extends BaseEntity {
   @JoinColumn({ name: 'postId' })
   post!: Post;
 
-  @OneToMany((type) => Reply, (reply) => reply.commentId)
+  @OneToMany((type) => Reply, (reply) => reply.comment)
   replies!: [Reply];
 }
 
