@@ -1,0 +1,9 @@
+type UserCommentsResponse {
+  ok: Boolean!
+  error: String
+  user: User
+}
+
+type Query {
+  UserComments: UserCommentsResponse!
+}

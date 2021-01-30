@@ -24,6 +24,7 @@ type Query {
   ReadPost(id: ID!): ReadPostResponse!
   TagPosts(cursor: ID, tag: String!): TagPostsResponse!
   TopTagsList: TopTagsListResponse!
+  UserComments: UserCommentsResponse!
 }
 
 type LoginEmailResponse {
@@ -35,6 +36,7 @@ type Mutation {
   LoginEmail(email: String!, password: String!): LoginEmailResponse!
   Logout: LogoutResponse!
   RegisterEmail(username: String!, email: String!, password: String!): RegisterEmailResponse!
+  UpdateProfile(profile: String, email: String): UpdateProfileResponse!
   AddComment(body: String!, postId: ID!): AddCommentResponse!
   RemoveComment(id: ID!): RemoveCommentResponse!
   UpdateComment(id: ID!, body: String!): UpdateCommentResponse!
@@ -52,6 +54,11 @@ type LogoutResponse {
 }
 
 type RegisterEmailResponse {
+  ok: Boolean!
+  error: String
+}
+
+type UpdateProfileResponse {
   ok: Boolean!
   error: String
 }
@@ -223,4 +230,10 @@ type TopTagsListResponse {
   error: String
   tags: [Tag]
   all_count: Int!
+}
+
+type UserCommentsResponse {
+  ok: Boolean!
+  error: String
+  user: User
 }
