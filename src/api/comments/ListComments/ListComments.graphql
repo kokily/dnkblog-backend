@@ -1,0 +1,11 @@
+type ListCommentsResponse {
+  ok: Boolean!
+  error: String
+  comments: [Comment]
+}
+
+type Query {
+  ListComments(
+    postId: ID!
+  ): ListCommentsResponse!
+}

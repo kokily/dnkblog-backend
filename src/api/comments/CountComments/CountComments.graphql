@@ -1,0 +1,14 @@
+type CountCommentType {
+  comments_num: Int
+  replies_num: Int
+}
+
+type CountCommentsResponse {
+  ok: Boolean!
+  error: String
+  count: CountCommentType
+}
+
+type Query {
+  CountComments: CountCommentsResponse!
+}

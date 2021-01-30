@@ -1,0 +1,11 @@
+type UpdateCommentResponse {
+  ok: Boolean!
+  error: String
+}
+
+type Mutation {
+  UpdateComment(
+    id: ID!
+    body: String!
+  ): UpdateCommentResponse!
+}

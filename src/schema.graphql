@@ -16,6 +16,8 @@ type CheckMeResponse {
 
 type Query {
   CheckMe: CheckMeResponse!
+  CountComments: CountCommentsResponse!
+  ListComments(postId: ID!): ListCommentsResponse!
   AllPosts(title: String, cursor: ID): AllPostsResponse!
   CategoryPosts(cursor: ID, category: String!): CategoryPostsResponse!
   DivideCategory: DivideCategoryResponse!
@@ -33,9 +35,15 @@ type Mutation {
   LoginEmail(email: String!, password: String!): LoginEmailResponse!
   Logout: LogoutResponse!
   RegisterEmail(username: String!, email: String!, password: String!): RegisterEmailResponse!
+  AddComment(body: String!, postId: ID!): AddCommentResponse!
+  RemoveComment(id: ID!): RemoveCommentResponse!
+  UpdateComment(id: ID!, body: String!): UpdateCommentResponse!
   AddPost(category: String!, title: String!, body: String!, thumbnail: String, tags: [String]!): AddPostResponse!
   RemovePost(id: ID!): RemovePostResponse!
   UpdatePost(id: ID!, category: String, title: String, body: String, thumbnail: String, tags: [String]): UpdatePostResponse!
+  AddReply(body: String!, commentId: ID!, postId: ID!): AddReplyResponse!
+  RemoveReply(id: ID!): RemoveReplyResponse!
+  UpdateReply(id: ID!, body: String!): UpdateReplyResponse!
 }
 
 type LogoutResponse {
@@ -44,6 +52,38 @@ type LogoutResponse {
 }
 
 type RegisterEmailResponse {
+  ok: Boolean!
+  error: String
+}
+
+type AddCommentResponse {
+  ok: Boolean!
+  error: String
+}
+
+type CountCommentType {
+  comments_num: Int
+  replies_num: Int
+}
+
+type CountCommentsResponse {
+  ok: Boolean!
+  error: String
+  count: CountCommentType
+}
+
+type ListCommentsResponse {
+  ok: Boolean!
+  error: String
+  comments: [Comment]
+}
+
+type RemoveCommentResponse {
+  ok: Boolean!
+  error: String
+}
+
+type UpdateCommentResponse {
   ok: Boolean!
   error: String
 }
@@ -90,6 +130,21 @@ type TagPostsResponse {
 }
 
 type UpdatePostResponse {
+  ok: Boolean!
+  error: String
+}
+
+type AddReplyResponse {
+  ok: Boolean!
+  error: String
+}
+
+type RemoveReplyResponse {
+  ok: Boolean!
+  error: String
+}
+
+type UpdateReplyResponse {
   ok: Boolean!
   error: String
 }

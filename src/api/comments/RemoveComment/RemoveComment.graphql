@@ -1,0 +1,10 @@
+type RemoveCommentResponse {
+  ok: Boolean!
+  error: String
+}
+
+type Mutation {
+  RemoveComment(
+    id: ID!
+  ): RemoveCommentResponse!
+}

@@ -1,0 +1,11 @@
+type UpdateReplyResponse {
+  ok: Boolean!
+  error: String
+}
+
+type Mutation {
+  UpdateReply(
+    id: ID!
+    body: String!
+  ): UpdateReplyResponse!
+}

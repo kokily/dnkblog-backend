@@ -1,0 +1,10 @@
+type RemoveReplyResponse {
+  ok: Boolean!
+  error: String
+}
+
+type Mutation {
+  RemoveReply(
+    id: ID!
+  ): RemoveReplyResponse!
+}
