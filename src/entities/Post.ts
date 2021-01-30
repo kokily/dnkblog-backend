@@ -39,10 +39,10 @@ class Post extends BaseEntity {
   updated_at!: Date;
 
   // Relations
-  @OneToMany((type) => Comment, (comment) => comment.postId)
+  @OneToMany((type) => Comment, (comment) => comment.post)
   comments!: Comment[];
 
-  @OneToMany((type) => Reply, (reply) => reply.postId)
+  @OneToMany((type) => Reply, (reply) => reply.post)
   replies!: Reply[];
 }
 
