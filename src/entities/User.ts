@@ -54,10 +54,14 @@ class User extends BaseEntity {
   updated_at!: Date;
 
   // Relations
-  @OneToMany((type) => Comment, (comment) => comment.user)
+  @OneToMany((type) => Comment, (comment) => comment.user, {
+    onDelete: 'CASCADE',
+  })
   comments!: Comment[];
 
-  @OneToMany((type) => Reply, (reply) => reply.user)
+  @OneToMany((type) => Reply, (reply) => reply.user, {
+    onDelete: 'CASCADE',
+  })
   replies!: Reply[];
 
   private hashPassword = async (password: string): Promise<string> => {

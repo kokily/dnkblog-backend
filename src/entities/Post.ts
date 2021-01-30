@@ -39,10 +39,14 @@ class Post extends BaseEntity {
   updated_at!: Date;
 
   // Relations
-  @OneToMany((type) => Comment, (comment) => comment.post)
+  @OneToMany((type) => Comment, (comment) => comment.post, {
+    onDelete: 'CASCADE',
+  })
   comments!: Comment[];
 
-  @OneToMany((type) => Reply, (reply) => reply.post)
+  @OneToMany((type) => Reply, (reply) => reply.post, {
+    onDelete: 'CASCADE',
+  })
   replies!: Reply[];
 }
 
