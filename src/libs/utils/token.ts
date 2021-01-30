@@ -1,6 +1,7 @@
 import { Context } from 'koa';
 import jwt from 'jsonwebtoken';
 import User from '../../entities/User';
+import { isProd } from '../constants';
 
 export function createAccessToken(user: User) {
   const token = {
@@ -31,9 +32,15 @@ export function createRefreshToken(user: User) {
 export function setTokenCookie(ctx: Context, accessToken: string, refreshToken: string) {
   ctx.cookies.set('accessToken', accessToken, {
     httpOnly: false,
+    domain: isProd ? '.dnkdream.com' : undefined,
+    sameSite: 'lax',
+    secure: true,
   });
 
   ctx.cookies.set('refreshToken', refreshToken, {
     httpOnly: true,
+    domain: isProd ? '.dnkdream.com' : undefined,
+    sameSite: 'lax',
+    secure: true,
   });
 }
