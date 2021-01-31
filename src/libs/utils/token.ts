@@ -34,13 +34,13 @@ export function setTokenCookie(ctx: Context, accessToken: string, refreshToken: 
     httpOnly: false,
     domain: isProd ? '.dnkdream.com' : undefined,
     sameSite: 'lax',
-    secure: true,
+    secure: isProd && true,
   });
 
   ctx.cookies.set('refreshToken', refreshToken, {
     httpOnly: true,
     domain: isProd ? '.dnkdream.com' : undefined,
     sameSite: 'lax',
-    secure: true,
+    secure: isProd && true,
   });
 }
