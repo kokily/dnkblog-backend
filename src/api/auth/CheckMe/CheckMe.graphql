@@ -6,6 +6,7 @@ type MeType {
   admin: Boolean!
   githubId: String
   googleId: String
+  kakaoId: String
 }
 
 type CheckMeResponse {

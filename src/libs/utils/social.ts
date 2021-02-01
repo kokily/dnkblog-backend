@@ -1,5 +1,7 @@
 import fetch from 'isomorphic-unfetch';
 import { google } from 'googleapis';
+import axios from 'axios';
+import qs from 'qs';
 import { devServer, isProd, prodServer } from '../constants';
 
 // Social Github
@@ -98,4 +100,58 @@ export async function getGoogleUser(token: string) {
   };
 
   return user;
+}
+
+// Social Kakao
+export const kakao = {
+  clientId: process.env.KAKAO_CLIENT_ID,
+  clientSecret: process.env.KAKAO_CLIENT_SECRET,
+  redirectUrl: `${isProd ? prodServer : devServer}/social/kakao/callback`,
+};
+
+export async function getKakaoToken(code: string) {
+  try {
+    const response = await axios({
+      method: 'post',
+      url: 'https://kauth.kakao.com/oauth/token',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      data: qs.stringify({
+        grant_type: 'authorization_code',
+        client_id: kakao.clientId,
+        client_secret: kakao.clientSecret,
+        redirect_uri: kakao.redirectUrl,
+        code,
+      }),
+    });
+
+    if (!response.data) {
+      throw new Error(response.data.error);
+    }
+
+    return response.data.access_token;
+  } catch (err) {
+    throw new Error(err);
+  }
+}
+
+export async function getKakaoUser(token: string) {
+  try {
+    const response = await axios({
+      method: 'get',
+      url: 'https://kapi.kakao.com/v2/user/me',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.data) {
+      throw new Error(response.data.error);
+    }
+
+    return response.data;
+  } catch (err) {
+    throw new Error(err);
+  }
 }

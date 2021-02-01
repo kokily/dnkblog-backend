@@ -11,6 +11,7 @@ type User {
   verified: Boolean!
   githubId: String
   googleId: String
+  kakaoId: String
   created_at: Date
   updated_at: Date
   comments: [Comment]

@@ -45,6 +45,9 @@ class User extends BaseEntity {
   @Column({ type: 'text', default: null, nullable: true })
   googleId!: string | null;
 
+  @Column({ type: 'text', default: null, nullable: true })
+  kakaoId!: string | null;
+
   @Column({ type: 'timestamptz' })
   @CreateDateColumn()
   created_at!: Date;

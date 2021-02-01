@@ -9,6 +9,9 @@ import {
   getGithubUser,
   getGoogleAccessToken,
   getGoogleUser,
+  getKakaoToken,
+  getKakaoUser,
+  kakao,
   url,
 } from '../libs/utils/social';
 import {
@@ -110,6 +113,53 @@ social.get('/google/callback', async (ctx: Context) => {
 
       const accessToken = createAccessToken(newUser);
       const refreshToken = createRefreshToken(newUser);
+
+      setTokenCookie(ctx, accessToken, refreshToken);
+
+      ctx.redirect(`${isProd ? prodClient : devClient}`);
+    }
+  } catch (err) {
+    ctx.throw(500, err);
+  }
+});
+
+social.get('/kakao/login', async (ctx: Context) => {
+  const url = `https://kauth.kakao.com/oauth/authorize?client_id=${kakao.clientId}&redirect_uri=${kakao.redirectUrl}&response_type=code`;
+
+  ctx.redirect(url);
+});
+
+// Kakao Login Callback
+social.get('/kakao/callback', async (ctx: Context) => {
+  const { code }: { code: string } = ctx.query;
+
+  try {
+    const accessToken = await getKakaoToken(code);
+    const kakaoUser = await getKakaoUser(accessToken);
+
+    const exists = await getRepository(User).findOne({ kakaoId: kakaoUser.id });
+
+    if (exists) {
+      // Exists User
+      const accessToken = createAccessToken(exists);
+      const refreshToken = createRefreshToken(exists);
+
+      setTokenCookie(ctx, accessToken, refreshToken);
+
+      ctx.redirect(`${isProd ? prodClient : devClient}`);
+    } else {
+      // New User Create
+      const user = await getRepository(User).create({
+        kakaoId: kakaoUser.id,
+        username: kakaoUser.kakao_account.profile.nickname,
+        email: kakaoUser.kakao_account.email && kakaoUser.kakao_account.email,
+        profile: kakaoUser.kakao_account.profile.profile_image_url,
+      });
+
+      await user.save();
+
+      const accessToken = createAccessToken(user);
+      const refreshToken = createRefreshToken(user);
 
       setTokenCookie(ctx, accessToken, refreshToken);
 

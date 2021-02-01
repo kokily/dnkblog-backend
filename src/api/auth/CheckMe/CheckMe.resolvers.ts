@@ -26,6 +26,7 @@ const resolvers: Resolvers = {
               admin: user.admin,
               githubId: user.githubId,
               googleId: user.googleId,
+              kakaoId: user.kakaoId,
               email: user.email,
             },
           };
