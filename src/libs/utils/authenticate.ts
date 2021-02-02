@@ -1,9 +1,7 @@
 import jwt from 'jsonwebtoken';
 import { Context } from 'koa';
 import { getRepository } from 'typeorm';
-import { serializeUser } from '.';
 import User from '../../entities/User';
-import { devClient, devServer, isProd, prodClient, prodServer } from '../constants';
 import { createAccessToken, createRefreshToken, setTokenCookie } from './token';
 
 const decodeToken = async (token: string): Promise<User | undefined> => {

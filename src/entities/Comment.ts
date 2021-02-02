@@ -9,9 +9,9 @@ import {
   UpdateDateColumn,
   OneToMany,
 } from 'typeorm';
+import User from './User';
 import Post from './Post';
 import Reply from './Reply';
-import User from './User';
 
 @Entity()
 class Comment extends BaseEntity {

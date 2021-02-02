@@ -1,9 +1,9 @@
-import User from './User';
-import Post from './Post';
-import Tag from './Tag';
 import Comment from './Comment';
+import Post from './Post';
 import Reply from './Reply';
+import Tag from './Tag';
+import User from './User';
 
-const entities = [User, Post, Tag, Comment, Reply];
+const entities = [Comment, Post, Reply, Tag, User];
 
 export default entities;

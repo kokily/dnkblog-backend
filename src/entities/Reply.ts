@@ -8,9 +8,9 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import Comment from './Comment';
-import Post from './Post';
 import User from './User';
+import Post from './Post';
+import Comment from './Comment';
 
 @Entity()
 class Reply extends BaseEntity {
