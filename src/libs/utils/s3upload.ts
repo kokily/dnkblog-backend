@@ -21,7 +21,7 @@ const s3upload = async ({
 
     const stream = fs.createReadStream(filePath);
     const saveTime = `${moment().format('YYMMDD_HHmmdd')}`;
-    const newFilename = `${saveTime}_${fileName.trim()}`;
+    const newFilename = `${saveTime}_${fileName.replace(/(\s*)/g, '')}`;
 
     stream.on('error', function (err) {
       reject(err);
