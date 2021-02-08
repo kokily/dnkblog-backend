@@ -12,6 +12,8 @@ const resolvers: Resolvers = {
         const query = await getManager()
           .createQueryBuilder(Post, 'posts')
           .limit(15)
+          .leftJoinAndSelect('posts.comments', 'comment')
+          .leftJoinAndSelect('posts.replies', 'reply')
           .orderBy('posts.created_at', 'DESC')
           .addOrderBy('posts.id', 'DESC');
 

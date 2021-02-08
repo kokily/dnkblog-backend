@@ -124,6 +124,8 @@ type ReadPostResponse {
   ok: Boolean!
   error: String
   post: Post
+  prev: Post
+  next: Post
 }
 
 type RemovePostResponse {
