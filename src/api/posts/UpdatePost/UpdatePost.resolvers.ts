@@ -15,7 +15,7 @@ const resolvers: Resolvers = {
         { ctx }: { ctx: Context }
       ): Promise<UpdatePostResponse> => {
         const { admin } = ctx.state.user;
-        const { id } = args;
+        const { id, body } = args;
 
         try {
           if (admin) {

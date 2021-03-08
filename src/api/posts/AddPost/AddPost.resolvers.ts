@@ -15,7 +15,7 @@ const resolvers: Resolvers = {
         { ctx }: { ctx: Context }
       ): Promise<AddPostResponse> => {
         const { user } = ctx.state;
-        const { tags } = args;
+        const { category, title, body, thumbnail, tags } = args;
 
         try {
           if (user.admin) {
@@ -35,7 +35,13 @@ const resolvers: Resolvers = {
               }
             });
 
-            const post = await getRepository(Post).create({ ...args });
+            const post = await getRepository(Post).create({
+              category,
+              title,
+              body,
+              thumbnail,
+              tags,
+            });
 
             await post.save();
 
