@@ -30,6 +30,9 @@ class Post extends BaseEntity {
   @Column({ type: 'simple-array' })
   tags!: string[];
 
+  @Column({ type: 'int', default: 0 })
+  counter!: number;
+
   @Column({ type: 'timestamptz' })
   @CreateDateColumn()
   created_at!: Date;

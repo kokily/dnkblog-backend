@@ -1,4 +1,4 @@
-import { getManager } from 'typeorm';
+import { getManager, getRepository } from 'typeorm';
 import { ReadPostQueryArgs, ReadPostResponse } from '../../../types/graphql';
 import { Resolvers } from '../../../types/resolvers';
 import Post from '../../../entities/Post';
@@ -14,6 +14,18 @@ const resolvers: Resolvers = {
           .where('post.id = :id', { id });
 
         const post = await query.getOne();
+
+        if (!post) {
+          return {
+            ok: false,
+            error: 'Does not exist Post',
+            post: null,
+            prev: null,
+            next: null,
+          };
+        }
+
+        await getRepository(Post).update({ id }, { counter: post.counter + 1 });
 
         if (!post) {
           return {
