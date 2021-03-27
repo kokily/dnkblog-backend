@@ -21,6 +21,7 @@ type Query {
   ListComments(postId: ID!): ListCommentsResponse!
   AllPosts(title: String, cursor: ID): AllPostsResponse!
   CategoryPosts(cursor: ID, category: String!): CategoryPostsResponse!
+  CountPosts(cursor: ID): CountPostsResponse!
   DivideCategory: DivideCategoryResponse!
   ReadPost(id: ID!): ReadPostResponse!
   TagPosts(cursor: ID, tag: String!): TagPostsResponse!
@@ -109,6 +110,12 @@ type AllPostsResponse {
 }
 
 type CategoryPostsResponse {
+  ok: Boolean!
+  error: String
+  posts: [Post]
+}
+
+type CountPostsResponse {
   ok: Boolean!
   error: String
   posts: [Post]

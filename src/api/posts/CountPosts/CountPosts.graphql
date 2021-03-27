@@ -1,0 +1,11 @@
+type CountPostsResponse {
+  ok: Boolean!
+  error: String
+  posts: [Post]
+}
+
+type Query {
+  CountPosts(
+    cursor: ID
+  ): CountPostsResponse!
+}
